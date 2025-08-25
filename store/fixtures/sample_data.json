@@ -1,0 +1,60 @@
+[
+  {
+    "model": "store.category",
+    "pk": 1,
+    "fields": {
+      "name": "Electronics",
+      "slug": "electronics"
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 2,
+    "fields": {
+      "name": "Books",
+      "slug": "books"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "title": "Smartphone",
+      "slug": "smartphone",
+      "description": "A modern smartphone with high-resolution display.",
+      "price": "499.99",
+      "image": "",
+      "in_stock": true,
+      "created_at": "2025-08-25T12:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 2,
+    "fields": {
+      "category": 1,
+      "title": "Laptop",
+      "slug": "laptop",
+      "description": "A lightweight laptop with powerful performance.",
+      "price": "899.99",
+      "image": "",
+      "in_stock": true,
+      "created_at": "2025-08-25T12:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 3,
+    "fields": {
+      "category": 2,
+      "title": "Django for Beginners",
+      "slug": "django-for-beginners",
+      "description": "Learn Django step by step with real projects.",
+      "price": "29.99",
+      "image": "",
+      "in_stock": true,
+      "created_at": "2025-08-25T12:00:00Z"
+    }
+  }
+]

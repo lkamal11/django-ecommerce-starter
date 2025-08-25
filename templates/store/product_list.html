@@ -1,0 +1,43 @@
+
+{% extends "store/base.html" %}
+{% block title %}Products | My Shop{% endblock %}
+{% block content %}
+<div class="row">
+  <aside class="col-md-3 mb-3">
+    <h5>Categories</h5>
+    <ul class="list-group">
+      <li class="list-group-item {% if not category %}active{% endif %}">
+        <a class="{% if not category %}link-light{% endif %}" href="{% url 'store:product_list' %}">All</a>
+      </li>
+      {% for c in categories %}
+      <li class="list-group-item {% if category == c %}active{% endif %}">
+        <a class="{% if category == c %}link-light{% endif %}" href="{% url 'store:category' c.slug %}">{{ c.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  <section class="col-md-9">
+    <h1 class="mb-3">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
+    <div class="row g-3">
+      {% for p in products %}
+      <div class="col-6 col-lg-4">
+        <div class="card h-100">
+          {% if p.image %}<img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.title }}">{% endif %}
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title mb-1"><a href="{% url 'store:product_detail' p.slug %}">{{ p.title }}</a></h6>
+            <div class="fw-bold mb-2">${{ p.price }}</div>
+            <form action="{% url 'store:add_to_cart' p.id %}" method="post" class="mt-auto">
+              {% csrf_token %}
+              <input type="hidden" name="quantity" value="1">
+              <button class="btn btn-primary w-100">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No products.</p>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

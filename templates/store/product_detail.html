@@ -1,0 +1,21 @@
+
+{% extends "store/base.html" %}
+{% block title %}{{ product.title }} | My Shop{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-5">
+    {% if product.image %}<img src="{{ product.image.url }}" class="img-fluid rounded">{% endif %}
+  </div>
+  <div class="col-md-7">
+    <h1>{{ product.title }}</h1>
+    <div class="h4">${{ product.price }}</div>
+    <p class="text-muted">{{ product.category.name }}</p>
+    <p>{{ product.description }}</p>
+    <form action="{% url 'store:add_to_cart' product.id %}" method="post" class="d-flex gap-2">
+      {% csrf_token %}
+      <input type="number" name="quantity" value="1" min="1" class="form-control" style="max-width:120px;">
+      <button class="btn btn-primary">Add to Cart</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

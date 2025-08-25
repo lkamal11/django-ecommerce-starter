@@ -1,0 +1,31 @@
+
+{% extends "store/base.html" %}
+{% block title %}Checkout | My Shop{% endblock %}
+{% block content %}
+<h1 class="mb-3">Checkout</h1>
+<div class="row">
+  <div class="col-md-7">
+    <form method="post" class="card card-body">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary">Place Order</button>
+    </form>
+  </div>
+  <div class="col-md-5">
+    <div class="card">
+      <div class="card-header">Order Summary</div>
+      <ul class="list-group list-group-flush">
+        {% for item in cart %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ item.product.title }} × {{ item.quantity }}</span>
+          <span>${{ item.subtotal }}</span>
+        </li>
+        {% endfor %}
+        <li class="list-group-item d-flex justify-content-between fw-bold">
+          <span>Total</span><span>${{ cart.get_total_price }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

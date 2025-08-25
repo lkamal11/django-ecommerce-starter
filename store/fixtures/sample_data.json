@@ -16,6 +16,14 @@
     }
   },
   {
+    "model": "store.category",
+    "pk": 3,
+    "fields": {
+      "name": "Clothing",
+      "slug": "clothing"
+    }
+  },
+  {
     "model": "store.product",
     "pk": 1,
     "fields": {
@@ -24,7 +32,7 @@
       "slug": "smartphone",
       "description": "A modern smartphone with high-resolution display.",
       "price": "499.99",
-      "image": "",
+      "image": "products/placeholder_smartphone.jpg",
       "in_stock": true,
       "created_at": "2025-08-25T12:00:00Z"
     }
@@ -38,7 +46,7 @@
       "slug": "laptop",
       "description": "A lightweight laptop with powerful performance.",
       "price": "899.99",
-      "image": "",
+      "image": "products/placeholder_laptop.jpg",
       "in_stock": true,
       "created_at": "2025-08-25T12:00:00Z"
     }
@@ -52,7 +60,21 @@
       "slug": "django-for-beginners",
       "description": "Learn Django step by step with real projects.",
       "price": "29.99",
-      "image": "",
+      "image": "products/placeholder_book.jpg",
+      "in_stock": true,
+      "created_at": "2025-08-25T12:00:00Z"
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 4,
+    "fields": {
+      "category": 3,
+      "title": "T-Shirt",
+      "slug": "t-shirt",
+      "description": "Comfortable cotton T-Shirt for everyday wear.",
+      "price": "19.99",
+      "image": "products/placeholder_tshirt.jpg",
       "in_stock": true,
       "created_at": "2025-08-25T12:00:00Z"
     }

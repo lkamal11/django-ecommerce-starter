@@ -2,9 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .models import Product, Category, Order, OrderItem
+from .models import Product, Category, Order, OrderItem, UserProfile
 from .cart import Cart
-from .forms import CheckoutForm
+from .forms import CheckoutForm, UserRegisterForm, EmailOrPhoneLoginForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate, logout
 
 def home(request):
     categories = Category.objects.all().order_by('name')
@@ -120,3 +122,54 @@ def checkout(request):
         form = CheckoutForm()
 
     return render(request, 'store/checkout.html', {'form': form, 'cart': cart})
+
+def register_view(request):
+    if request.user.is_authenticated:
+        return redirect('store:home')
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            # Save phone number
+            phone = form.cleaned_data.get('phone')
+            UserProfile.objects.create(user=user, phone=phone)
+            # Authenticate user with username and password
+            user = authenticate(request, username=user.username, password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)  # Now Django knows which backend was used
+                messages.success(request, "Registration successful. You are now logged in.")
+                return redirect('store:home')
+            else:
+                messages.error(request, "Registration successful, but automatic login failed. Please log in manually.")
+                return redirect('store:login')
+        else:
+            messages.error(request, "Please correct the errors below.")
+    else:
+        form = UserRegisterForm()
+    return render(request, 'store/register.html', {'form': form})
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('store:home')
+    if request.method == 'POST':
+        form = EmailOrPhoneLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login successful.")
+                return redirect('store:home')
+            else:
+                messages.error(request, "Invalid credentials.")
+    else:
+        form = EmailOrPhoneLoginForm()
+    return render(request, 'store/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "You have been logged out.")
+    return redirect('store:home')

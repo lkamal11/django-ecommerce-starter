@@ -1,0 +1,58 @@
+{% extends "store/base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<style>
+  .required-label::after {
+    content: " *";
+    color: red;
+    font-weight: bold;
+  }
+</style>
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <h2 class="mb-4">Register</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      <div class="mb-2">
+        <label class="required-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
+      <div class="mb-2">
+        <label class="required-label" for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+        {{ form.first_name }}
+        {{ form.first_name.errors }}
+      </div>
+      <div class="mb-2">
+        <label class="required-label" for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+        {{ form.last_name }}
+        {{ form.last_name.errors }}
+      </div>
+      <div class="mb-2">
+        <label{% if not form.email.field.required %} {% else %} class="required-label"{% endif %} for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+      <div class="mb-2">
+        <label{% if not form.phone.field.required %} {% else %} class="required-label"{% endif %} for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+        {{ form.phone }}
+        {{ form.phone.errors }}
+        <small class="form-text text-muted">At least one of Email or Phone is required.</small>
+      </div>
+      <div class="mb-2">
+        <label class="required-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+      </div>
+      <div class="mb-2">
+        <label class="required-label" for="{{ form.confirm_password.id_for_label }}">{{ form.confirm_password.label }}</label>
+        {{ form.confirm_password }}
+        {{ form.confirm_password.errors }}
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+    <p class="mt-3">Already have an account? <a href="{% url 'store:login' %}">Login</a></p>
+  </div>
+</div>
+{% endblock %}

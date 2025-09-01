@@ -16,6 +16,9 @@
   </aside>
   <section class="col-md-9">
     <h1 class="mb-3">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
+    {% if request.GET.q %}
+      <h5>Search results for "{{ request.GET.q }}"</h5>
+    {% endif %}
     <div class="row g-3">
       {% for p in page_obj %}
       <div class="col-6 col-lg-4">

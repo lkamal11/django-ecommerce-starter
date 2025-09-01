@@ -35,9 +35,13 @@ def home(request):
     })
 
 def product_list(request, category_slug=None):
+    query = request.GET.get('q')
+    products = Product.objects.all()
+    if query:
+        products = products.filter(title__icontains=query)
+
     category = None
     categories = Category.objects.all().order_by('name')
-    products = Product.objects.filter(in_stock=True)
 
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)

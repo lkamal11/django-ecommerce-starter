@@ -95,6 +95,10 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" href="{% url 'store:product_list' %}"><i class="bi bi-grid"></i> All Products</a></li>
       </ul>
+      <form class="d-flex ms-3" method="get" action="{% url 'store:product_list' %}">
+        <input class="form-control me-2" type="search" name="q" placeholder="Search products..." aria-label="Search">
+        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+      </form>
       <a class="btn btn-outline-light position-relative" href="{% url 'store:cart_view' %}">
         <i class="bi bi-cart3"></i>
         Cart

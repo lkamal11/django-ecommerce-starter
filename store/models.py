@@ -10,11 +10,9 @@ class UserProfile(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    slug = models.SlugField(max_length=140, unique=True)
-
-    class Meta:
-        verbose_name_plural = 'Categories'
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to='categories/', null=True, blank=True)  # Add this line
 
     def __str__(self):
         return self.name

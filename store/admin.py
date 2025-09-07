@@ -1,10 +1,10 @@
-
 from django.contrib import admin
 from .models import Category, Product, Order, OrderItem
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
+    list_display = ('name', 'slug', 'image')  # Add 'image' here
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

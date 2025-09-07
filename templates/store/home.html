@@ -43,4 +43,20 @@
     {% endif %}
   </ul>
 </nav>
+
+<h1 class="mb-4">Categories</h1>
+<div class="row g-3">
+  {% for category in categories %}
+  <div class="col-6 col-md-3">
+    <div class="card h-100">
+      {% if category.image %}<img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }}">{% endif %}
+      <div class="card-body">
+        <h6 class="card-title mb-1">{{ category.name }}</h6>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>No categories yet.</p>
+  {% endfor %}
+</div>
 {% endblock %}
